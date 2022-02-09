@@ -1,4 +1,4 @@
 export const timeDefaultValue = {
-  hour: 0,
-  minutes: 0
+  hour: new Date().getHours(),
+  minutes: new Date().getSeconds(),
 }

@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 import clockBackground from '../../assets/clock_base.svg';
 
-export const Container = styled.div`
+interface ClockStylesProps {
+  time: {
+    hour: number;
+    minutes: number;
+  };
+}
+
+export const Container = styled.div<ClockStylesProps>`
   background: url(${clockBackground}) no-repeat center center;
   background-size: cover;
   width: 150px;
@@ -13,11 +20,12 @@ export const Container = styled.div`
     position: absolute;
     width: 4px;
     left: 50%;
-    top: 9%;
+    top: 7.5%;
     height: 60px;
     background: var(--light-purple);
     transform-origin: bottom;
-    transform: translateX(-50%) rotateZ(0deg);
+    transform: translateX(-50%)
+      rotateZ(${({ time }) => time.minutes * 6 + 'deg'});
     z-index: 100;
   }
 
@@ -28,9 +36,9 @@ export const Container = styled.div`
     width: 4px;
     height: 40px;
     background: var(--dark-purple);
-    top: 21%;
+    top: 20.75%;
     left: 50%;
     transform-origin: bottom;
-    transform: translateX(-50%) rotateZ(90deg);
+    transform: translateX(-50%) rotateZ(${({ time }) => time.hour * 12 + 'deg'});
   }
 `;
