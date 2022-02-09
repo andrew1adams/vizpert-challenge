@@ -6,15 +6,14 @@ export const Container = styled.main`
   .wall-wrapper {
     background: url(${wallBackground}) center center;
     background-size: auto 100%;
-    height: 50vh;
+    height: 55vh;
     width: 100vw;
   }
 
   .ground-wrapper {
     background: url(${groundBackground}) center center;
     background-size: auto 100%;
-    height: 50vh;
+    height: 45vh;
     width: 100vw;
-    position: relative;
   }
 `;
