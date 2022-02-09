@@ -1,25 +1,27 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import { timeDefaultValue } from '../../constants';
 import { Container } from './style';
+import { useDebounce } from '../../hooks';
 
-interface ClockProps {
-  timeZone?: number;
-}
 
-const Clock: React.FC<ClockProps> = ({ timeZone = -3 }) => {
+const Clock: React.FC = () => {
+  let dateNow = new Date();
   const [time, setTime] = useState(timeDefaultValue);
-  const dateNow = new Date();
+  const debouncedValue = useDebounce<Date>(dateNow, 1000);
 
   const handleClock = () => {
     const time = {
       hour: dateNow.getHours(),
-      minutes: dateNow.getMinutes(),
+      minutes: dateNow.getSeconds(),
     };
 
     setTime(time);
   };
 
-  return <Container />;
+  useEffect(handleClock, [dateNow, debouncedValue]);
+
+  return <Container time={time} />;
 };
 
 export default Clock;
