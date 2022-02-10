@@ -1,4 +1,5 @@
-import Main from './Main'
-import Clock from './Clock'
+import Main from './Main';
+import Clock from './Clock';
+import Bookcase from './Bookcase';
 
-export { Main, Clock }
+export { Main, Clock, Bookcase };
