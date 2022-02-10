@@ -41,7 +41,7 @@ export const Shelf = () => {
             src={book.src}
             alt={book.alt}
             key={book.id}
-            id="firstShelf"
+            listOrder="firstShelf"
             index={index}
           />
         ))}
@@ -52,7 +52,7 @@ export const Shelf = () => {
             src={book.src}
             alt={book.alt}
             key={book.id}
-            id="secondShelf"
+            listOrder="secondShelf"
             index={index}
           />
         ))}
