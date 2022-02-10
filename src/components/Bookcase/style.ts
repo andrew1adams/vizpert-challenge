@@ -15,21 +15,5 @@ export const Container = styled.div`
     gap: 23px;
     padding-left: 25px;
     padding-top: 155px;
-
-    .shelf {
-      width: 350px;
-      height: 100px;
-      padding: 3px 5px 5px;
-      display: flex;
-
-      img {
-        height: 90px;
-        width: 37px;
-      }
-    }
-
-    .reverse-order {
-      flex-direction: row-reverse;
-    }
   }
 `;
