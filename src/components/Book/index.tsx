@@ -2,33 +2,22 @@ import { Container } from './style';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef, useContext } from 'react';
 import { ShelfContext } from '../../context';
+import { BookProps, IDraggableItem } from '../../interfaces';
 
-interface BookProps {
-  src: string;
-  alt: string;
-  listOrder: string;
-  index: number;
-}
-
-interface IDraggableItem {
-  listOrder: string;
-  index: number;
-}
-
-const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
+const Book: React.FC<BookProps> = ({ src, alt, listName, index }) => {
   const dndRef = useRef<HTMLLIElement>(null);
   const { reorderBooks } = useContext(ShelfContext);
 
   const [, dragRef] = useDrag({
     type: 'BOOK',
-    item: { listOrder, index },
+    item: { listName, index },
   });
 
   const [, dropRef] = useDrop({
     accept: 'BOOK',
     hover(item: IDraggableItem, monitor) {
-      const listItem = item.listOrder;
-      const targetList = listOrder;
+      const listItem = item.listName;
+      const targetList = listName;
 
       const draggedItem = item.index;
       const targetItem = index;
@@ -41,10 +30,11 @@ const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
 
         const draggedOffset = monitor.getClientOffset();
 
+        console.log('Target list: ', targetList);
+        console.log('Target item: ', targetItem);
+
         if (draggedOffset) {
           const draggedHorizontal = draggedOffset.x - targetSize.left;
-
-          console.log(targetCenter, draggedHorizontal);
 
           if (draggedItem < targetItem && draggedHorizontal < targetCenter)
             return;
@@ -59,7 +49,7 @@ const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
           });
 
           item.index = targetItem;
-          item.listOrder = targetList;
+          item.listName = targetList;
         }
       }
     },

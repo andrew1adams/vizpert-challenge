@@ -19,6 +19,18 @@ export interface IReorderBooks {
   to: number;
 }
 
+export interface BookProps {
+  src: string;
+  alt: string;
+  listName: string;
+  index: number;
+}
+
+export interface IDraggableItem {
+  listName: string;
+  index: number;
+}
+
 export interface ShelfContextProps {
   books: IBooks;
   reorderBooks({ fromList, from, to }: IReorderBooks): void;

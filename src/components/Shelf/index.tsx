@@ -16,19 +16,16 @@ export const Shelf = () => {
     to,
   }: IReorderBooks): void => {
     setBookSorted(
-      produce(booksSorted, (draft) => {
-        const dragged =
-          draft[fromList === 'firstShelf' ? 'firstShelf' : 'secondShelf'][from];
+      produce(booksSorted, (arrayDraft) => {
+        const verifyFromList =
+          fromList === 'firstShelf' ? 'firstShelf' : 'secondShelf';
+        const verifyToList =
+          toList === 'firstShelf' ? 'firstShelf' : 'secondShelf';
 
-        draft[fromList === 'firstShelf' ? 'firstShelf' : 'secondShelf'].splice(
-          from,
-          1
-        );
-        draft[toList === 'firstShelf' ? 'firstShelf' : 'secondShelf'].splice(
-          to,
-          0,
-          dragged
-        );
+        const dragged = arrayDraft[verifyFromList][from];
+
+        arrayDraft[verifyFromList].splice(from, 1);
+        arrayDraft[verifyToList].splice(to, 0, dragged);
       })
     );
   };
@@ -41,7 +38,7 @@ export const Shelf = () => {
             src={book.src}
             alt={book.alt}
             key={book.id}
-            listOrder="firstShelf"
+            listName="firstShelf"
             index={index}
           />
         ))}
@@ -52,7 +49,7 @@ export const Shelf = () => {
             src={book.src}
             alt={book.alt}
             key={book.id}
-            listOrder="secondShelf"
+            listName="secondShelf"
             index={index}
           />
         ))}
