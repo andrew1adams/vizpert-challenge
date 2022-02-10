@@ -6,29 +6,32 @@ import { ShelfContext } from '../../context';
 interface BookProps {
   src: string;
   alt: string;
-  listOrder: string;
+  id: string;
   index: number;
 }
 
 interface IDraggableItem {
-  listOrder: string;
+  id: string;
   index: number;
 }
 
-const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
+const Book: React.FC<BookProps> = ({ src, alt, id, index }) => {
   const dndRef = useRef<HTMLLIElement>(null);
   const { reorderBooks } = useContext(ShelfContext);
 
-  const [, dragRef] = useDrag({
+  const [{ isDraggingItem }, dragRef] = useDrag({
     type: 'BOOK',
-    item: { listOrder, index },
+    item: { id, index },
+    collect: (monitor) => ({
+      isDraggingItem: monitor.isDragging(),
+    }),
   });
 
   const [, dropRef] = useDrop({
     accept: 'BOOK',
     hover(item: IDraggableItem, monitor) {
-      const listItem = item.listOrder;
-      const targetList = listOrder;
+      const listItem = item.id;
+      const targetList = id;
 
       const draggedItem = item.index;
       const targetItem = index;
@@ -59,7 +62,7 @@ const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
           });
 
           item.index = targetItem;
-          item.listOrder = targetList;
+          item.id = targetList;
         }
       }
     },
@@ -68,7 +71,7 @@ const Book: React.FC<BookProps> = ({ src, alt, listOrder, index }) => {
   dragRef(dropRef(dndRef));
 
   return (
-    <Container ref={dndRef}>
+    <Container ref={dndRef} isDraggingItem={isDraggingItem}>
       <img src={src} alt={alt} />
     </Container>
   );
