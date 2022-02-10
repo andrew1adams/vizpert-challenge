@@ -25,7 +25,7 @@ export const Container = styled.div<ClockStylesProps>`
     background: var(--light-purple);
     transform-origin: bottom;
     transform: translateX(-50%)
-      rotateZ(${({ time }) => time.minutes * 6 + 'deg'});
+      rotate(${({ time }) => time.minutes * 6 + 'deg'});
     z-index: 100;
   }
 
@@ -39,6 +39,6 @@ export const Container = styled.div<ClockStylesProps>`
     top: 20.75%;
     left: 50%;
     transform-origin: bottom;
-    transform: translateX(-50%) rotateZ(${({ time }) => time.hour * 12 + 'deg'});
+    transform: translateX(-50%) rotate(${({ time }) => time.hour * 30 + 'deg'});
   }
 `;

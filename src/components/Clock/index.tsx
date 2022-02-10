@@ -1,25 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { timeDefaultValue } from '../../constants';
 import { Container } from './style';
 import { useDebounce } from '../../hooks';
 
-
 const Clock: React.FC = () => {
-  let dateNow = new Date();
   const [time, setTime] = useState(timeDefaultValue);
-  const debouncedValue = useDebounce<Date>(dateNow, 1000);
+  const debouncedValue = useDebounce<Date>(new Date(), 1000);
 
   const handleClock = () => {
-    const time = {
-      hour: dateNow.getHours(),
-      minutes: dateNow.getSeconds(),
+    const getTime = {
+      hour: new Date().getHours(),
+      minutes: new Date().getMinutes(),
     };
 
-    setTime(time);
+    setTime(getTime);
   };
 
-  useEffect(handleClock, [dateNow, debouncedValue]);
+  useEffect(handleClock, [debouncedValue]);
 
   return <Container time={time} />;
 };
