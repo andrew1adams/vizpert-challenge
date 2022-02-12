@@ -57,6 +57,7 @@ const firstShelf = [
     src: book_f,
     alt: 'Book F',
   },
+  { id: 11 },
 ];
 
 const secondShelf = [
@@ -84,6 +85,7 @@ const secondShelf = [
     src: book_i,
     alt: 'Book I',
   },
+  { id: 10 },
 ];
 
 const books = { firstShelf, secondShelf };

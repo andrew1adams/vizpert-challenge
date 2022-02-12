@@ -4,7 +4,7 @@ const shelfContextDefaultValue = {
   reorderBooks({ fromList, toList, from, to }: IReorderBooks) {
     return;
   },
-  books: {
+  booksSorted: {
     firstShelf: [
       {
         id: 0,

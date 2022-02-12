@@ -45,7 +45,7 @@ export const Container = styled.div<ClockStylesProps>`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     display: none;
   }
 `;
