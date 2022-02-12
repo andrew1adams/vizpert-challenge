@@ -2,27 +2,31 @@ import { Container } from './style';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef, useContext } from 'react';
 import { ShelfContext } from '../../context';
-import { BookProps, IDraggableItem } from '../../interfaces';
+import { BookProps, IDraggableBook } from '../../interfaces';
 
-const Book: React.FC<BookProps> = ({ src, alt, listName, index }) => {
+const Book: React.FC<BookProps> = ({ src, alt, listName, index, id }) => {
   const dndRef = useRef<HTMLLIElement>(null);
   const { reorderBooks } = useContext(ShelfContext);
 
-  const [, dragRef] = useDrag({
+  const [{ isDraggable }, dragBookRef] = useDrag({
     type: 'BOOK',
-    item: { listName, index },
+    item: { listName, index, id, dndRef },
+    collect: (monitor) => ({
+      isDraggable: monitor.isDragging(),
+    }),
   });
 
-  const [, dropRef] = useDrop({
+  const [, dropBookRef] = useDrop({
     accept: 'BOOK',
-    hover(item: IDraggableItem, monitor) {
-      const listItem = item.listName;
-      const targetList = listName;
+    hover(book: IDraggableBook, monitor) {
+      const bookList = book.listName;
+      const targetBookList = listName;
 
-      const draggedItem = item.index;
-      const targetItem = index;
+      const draggedBookIndex = book.index;
+      const indexOfTargetBook = index;
 
-      if (draggedItem === targetItem) return;
+      if (draggedBookIndex === indexOfTargetBook && bookList === targetBookList)
+        return;
 
       if (dndRef.current) {
         const targetSize = dndRef.current.getBoundingClientRect();
@@ -30,38 +34,47 @@ const Book: React.FC<BookProps> = ({ src, alt, listName, index }) => {
 
         const draggedOffset = monitor.getClientOffset();
 
-        console.log('Target list: ', targetList);
-        console.log('Target item: ', targetItem);
-
         if (draggedOffset) {
           const draggedHorizontal = draggedOffset.x - targetSize.left;
 
-          if (draggedItem < targetItem && draggedHorizontal < targetCenter)
+          if (
+            draggedBookIndex < indexOfTargetBook &&
+            draggedHorizontal < targetCenter
+          )
             return;
-          if (draggedItem > targetItem && draggedHorizontal > targetCenter)
+          if (
+            draggedBookIndex > indexOfTargetBook &&
+            draggedHorizontal > targetCenter
+          )
             return;
 
           reorderBooks({
-            fromList: listItem,
-            toList: targetList,
-            from: draggedItem,
-            to: targetItem,
+            fromList: bookList,
+            toList: targetBookList,
+            from: draggedBookIndex,
+            to: indexOfTargetBook,
           });
 
-          item.index = targetItem;
-          item.listName = targetList;
+          book.index = indexOfTargetBook;
+          book.listName = targetBookList;
         }
       }
     },
   });
 
-  dragRef(dropRef(dndRef));
+  dragBookRef(dropBookRef(dndRef));
+  // dragBookRef(dndRef);
 
-  return (
-    <Container ref={dndRef}>
-      <img src={src} alt={alt} />
-    </Container>
-  );
+  if (src)
+    return (
+      <>
+        <Container ref={dndRef} isDraggable={isDraggable} emptyShelf={false}>
+          <img src={src} alt={alt} />
+        </Container>
+      </>
+    );
+
+  return <Container ref={dndRef} emptyShelf />;
 };
 
 export default Book;
