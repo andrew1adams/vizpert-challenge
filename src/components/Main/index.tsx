@@ -1,7 +1,8 @@
 import React from 'react';
 import { Bookcase, Clock } from '..';
 import { Container } from './style';
-import logo from '../../assets/logo.svg';
+import { logo } from '../../assets';
+import { Board } from '../Board';
 
 const Main: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const Main: React.FC = () => {
         <Bookcase />
         <img src={logo} alt="Vizpert Logotype" />
       </div>
-      <div className="ground-wrapper"></div>
+      <div className="ground-wrapper">
+        <Board />
+      </div>
     </Container>
   );
 };

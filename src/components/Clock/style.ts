@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import clockBackground from '../../assets/clock_base.svg';
+import { clock_base } from '../../assets';
 
 interface ClockStylesProps {
   time: {
@@ -10,7 +10,7 @@ interface ClockStylesProps {
 
 export const Container = styled.div<ClockStylesProps>`
   @media (min-width: 768px) {
-    background: url(${clockBackground}) no-repeat center center;
+    background: url(${clock_base}) no-repeat center center;
     background-size: cover;
     width: 150px;
     height: 150px;

@@ -4,16 +4,8 @@ import { BookStyleProps } from '../../interfaces';
 export const Container = styled.li<BookStyleProps>`
   background: transparent;
   display: flex;
-
-  ${({ emptyShelf }) =>
-    emptyShelf &&
-    css`
-      width: 100%;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    `}
+  width: 35px;
+  height: 100%;
 
   img {
     width: 35px;

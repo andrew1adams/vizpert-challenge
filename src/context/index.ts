@@ -1,3 +1,3 @@
-import ShelfContext from './ShelfContext';
+import { ShelfContext, ShelfContextProvider } from './ShelfContext';
 
-export { ShelfContext };
+export { ShelfContext, ShelfContextProvider };

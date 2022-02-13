@@ -63,18 +63,17 @@ const Book: React.FC<BookProps> = ({ src, alt, listName, index, id }) => {
   });
 
   dragBookRef(dropBookRef(dndRef));
-  // dragBookRef(dndRef);
 
-  if (src)
+  if (id && id < 10)
     return (
       <>
-        <Container ref={dndRef} isDraggable={isDraggable} emptyShelf={false}>
+        <Container ref={dndRef} isDraggable={isDraggable}>
           <img src={src} alt={alt} />
         </Container>
       </>
     );
 
-  return <Container ref={dndRef} emptyShelf />;
+  return <Container ref={dndRef}></Container>;
 };
 
 export default Book;
