@@ -1,51 +1,46 @@
 import styled from 'styled-components';
-import wallBackground from '../../assets/bg_stripes.svg';
-import groundBackground from '../../assets/ground.svg';
+import { bg_stripes, ground } from '../../assets';
 
 export const Container = styled.main`
   overflow: hidden;
+  height: 100vh;
 
   .wall-wrapper {
-    background: url(${wallBackground}) center center;
-    background-size: auto 100%;
-    height: 55vh;
-    width: 100vw;
+    background: url(${bg_stripes});
+    background-size: auto 80%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 45vw;
     align-items: center;
+    position: relative;
+    height: 50%;
 
     > img {
-      width: 225px;
-      height: 225px;
+      width: 200px;
+      height: 200px;
     }
 
     @media (max-width: 480px) {
-      height: 50vh;
-      flex-direction: column-reverse;
+      flex-direction: column;
 
       > img {
-        margin-top: 150px;
-        width: 150px;
-        height: 150px;
+        width: 175px;
+        height: 175px;
+        margin-bottom: 20vh;
 
         @media (min-height: 768px) {
-          margin-top: 225px;
         }
       }
     }
   }
 
   .ground-wrapper {
-    background: url(${groundBackground}) center center;
-    background-size: auto 100%;
-    height: 45vh;
-    width: 100vw;
+    height: 50%;
+    background: url(${ground});
+    overflow: hidden;
 
     @media (max-width: 480px) {
-      height: 50vh;
-
-      > img {
-      }
+      height: 55vh;
     }
   }
 `;
