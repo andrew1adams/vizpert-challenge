@@ -18,6 +18,7 @@ const firstShelf = [
     color: '#F1F552',
     src: book_a,
     alt: 'Book A',
+    created_at: new Date('May 13 1997'),
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const firstShelf = [
     color: '#EB3929',
     src: book_b,
     alt: 'Book B',
+    created_at: new Date('Aug 30 1995'),
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ const firstShelf = [
     color: '#F69340',
     src: book_c,
     alt: 'Book C',
+    created_at: new Date('Sep 03 1997'),
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ const firstShelf = [
     color: '#AF42F6',
     src: book_d,
     alt: 'Book D',
+    created_at: new Date('Sep 19 1961'),
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ const firstShelf = [
     color: '#40A7F6',
     src: book_e,
     alt: 'Book E',
+    created_at: new Date('Dec 23 1956'),
   },
   {
     id: 6,
@@ -58,6 +63,7 @@ const firstShelf = [
     color: '#DD108F',
     src: book_f,
     alt: 'Book F',
+    created_at: new Date('Jun 17 1942'),
   },
 ];
 
@@ -69,6 +75,7 @@ const secondShelf = [
     color: '#F460D4',
     src: book_g,
     alt: 'Book G',
+    created_at: new Date('Jul 04 1995'),
   },
   {
     id: 8,
@@ -77,6 +84,7 @@ const secondShelf = [
     color: '#4041F6',
     src: book_h,
     alt: 'Book H',
+    created_at: new Date('Aug 21 2002'),
   },
   {
     id: 9,
@@ -85,6 +93,7 @@ const secondShelf = [
     color: '#38E655',
     src: book_i,
     alt: 'Book I',
+    created_at: new Date('Jan 31 1994'),
   },
 ];
 

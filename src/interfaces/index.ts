@@ -7,6 +7,7 @@ export interface IBook {
   color?: any;
   src?: string;
   alt?: string;
+  created_at?: Date;
 }
 
 export interface IBooks {
@@ -52,18 +53,20 @@ export interface ShelfContextProps {
   setBooksSorted: Dispatch<SetStateAction<IBooks>>;
   reorderBooks({ fromList, from, to }: IReorderBooks): void;
   buttonIsActive: {
-    first: boolean;
-    second: boolean;
-    third: boolean;
+    alpha: boolean;
+    color: boolean;
+    size: boolean;
+    date: boolean;
   };
   setButtonIsActive: Dispatch<
     SetStateAction<ShelfContextProps['buttonIsActive']>
   >;
-  sortOrder: 'reverse' | 'alpha' | 'size' | 'color' | undefined;
+  sortOrder?: 'reverse' | 'alpha' | 'size' | 'color' | 'date';
   setSortOrder: Dispatch<SetStateAction<ShelfContextProps['sortOrder']>>;
   handleAlphaSort: () => void;
   handleColorSort: () => void;
   handleSizeSort: () => void;
+  handleDateSort: () => void;
 }
 
 export interface ButtonProps {

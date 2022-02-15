@@ -1,4 +1,9 @@
-import { filter_alphabetic, filter_colors, filter_sizes } from '../assets';
+import {
+  filter_alphabetic,
+  filter_colors,
+  filter_sizes,
+  filter_date,
+} from '../assets';
 
 const buttons = [
   {
@@ -15,6 +20,11 @@ const buttons = [
     id: 3,
     src: filter_sizes,
     alt: 'Size filter',
+  },
+  {
+    id: 4,
+    src: filter_date,
+    alt: 'Date filter',
   },
 ];
 

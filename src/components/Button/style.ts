@@ -3,8 +3,8 @@ import { filter_button, filter_button_active } from '../../assets';
 import { ButtonStyleProps } from '../../interfaces';
 
 export const Container = styled.button<ButtonStyleProps>`
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: none;
   background: url(${filter_button}) no-repeat center center;
 

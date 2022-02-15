@@ -26,9 +26,10 @@ const shelfContextDefaultValue = {
   },
   setBooksSorted: () => {},
   buttonIsActive: {
-    first: false,
-    second: false,
-    third: false,
+    alpha: false,
+    color: false,
+    size: false,
+    date: false,
   },
   setButtonIsActive: () => {},
   sortOrder: undefined,
@@ -36,6 +37,7 @@ const shelfContextDefaultValue = {
   handleAlphaSort: () => {},
   handleColorSort: () => {},
   handleSizeSort: () => {},
+  handleDateSort: () => {},
 };
 
 export default shelfContextDefaultValue;

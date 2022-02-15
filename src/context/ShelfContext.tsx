@@ -1,6 +1,7 @@
 import produce from 'immer';
 import { createContext, useEffect, useState } from 'react';
 import { books, shelfContextDefaultValue } from '../constants';
+import { HEXtoHSL } from '../helper';
 import { IBooks, IReorderBooks, ShelfContextProps } from '../interfaces';
 
 const ShelfContext = createContext<ShelfContextProps>(shelfContextDefaultValue);
@@ -110,7 +111,11 @@ const ShelfContextProvider: React.FC = ({ children }) => {
   const handleAlphaSort = () => {
     setBooksSorted(
       produce(booksSorted, (arrayDraft) => {
-        const sortedFirst = arrayDraft.firstShelf.sort((a, b) =>
+        const filteredFirstArr = arrayDraft.firstShelf.filter(
+          (item) => item.letter !== undefined
+        );
+
+        const sortedFirst = filteredFirstArr.sort((a, b) =>
           !a.letter
             ? -1
             : !b.letter
@@ -124,11 +129,15 @@ const ShelfContextProvider: React.FC = ({ children }) => {
 
         arrayDraft.firstShelf = sortedFirst;
 
-        const sortedSecond = arrayDraft.secondShelf.sort((a, b) =>
+        const filteredSecondArr = arrayDraft.secondShelf.filter(
+          (item) => item.letter !== undefined
+        );
+
+        const sortedSecond = filteredSecondArr.sort((a, b) =>
           !a.letter
-            ? 0
+            ? -1
             : !b.letter
-            ? 0
+            ? -1
             : a.letter > b.letter
             ? 1
             : b.letter > a.letter
@@ -142,150 +151,35 @@ const ShelfContextProvider: React.FC = ({ children }) => {
   };
 
   const handleColorSort = () => {
-    const HEXtoRGB = (color: string) => {
-      if (color) {
-        color = color.replaceAll('#', '');
-        const HEX: {
-          red: string | number;
-          green: string | number;
-          blue: string | number;
-        } = {
-          red: color.substring(0, 2),
-          green: color.substring(2, 4),
-          blue: color.substring(4, 6),
-        };
-        HEX.red = typeof HEX.red === 'string' ? parseInt(HEX.red, 16) : HEX.red;
-        HEX.green =
-          typeof HEX.green === 'string' ? parseInt(HEX.green, 16) : HEX.green;
-        HEX.blue =
-          typeof HEX.blue === 'string' ? parseInt(HEX.blue, 16) : HEX.blue;
-        return HEX;
-      }
-    };
-    const RGBtoHSL = ({
-      red,
-      green,
-      blue,
-    }: {
-      red: number;
-      green: number;
-      blue: number;
-    }) => {
-      red /= 255;
-      green /= 255;
-      blue /= 255;
-      const minBetweenColors = Math.min(red, green, blue);
-      const maxBetweenColors = Math.max(red, green, blue);
-      const differenceBetweenValues = maxBetweenColors - minBetweenColors;
-      const HSL = {
-        hue: 0,
-        saturation: 0,
-        lightness: 0,
-      };
-      // some checks to assign value to hue
-      if (differenceBetweenValues === 0) {
-        HSL.hue = 0;
-      } else if (maxBetweenColors === red) {
-        HSL.hue = ((green - blue) / differenceBetweenValues) % 6;
-      } else if (maxBetweenColors === 0) {
-        HSL.hue = (blue - red) / differenceBetweenValues + 2;
-      } else {
-        HSL.hue = (red - green) / differenceBetweenValues + 4;
-      }
-      HSL.hue = Math.round(HSL.hue * 60);
-      if (HSL.hue < 0) {
-        HSL.hue += 360;
-      }
-      // calc of lightness
-      HSL.lightness = (maxBetweenColors + minBetweenColors) / 2;
-      HSL.saturation = //calc of saturation
-        differenceBetweenValues === 0
-          ? 0
-          : differenceBetweenValues / (1 - Math.abs(2 * HSL.lightness - 1));
-      // ending of conversion to hsl
-      HSL.saturation = +(HSL.saturation * 100).toFixed(1);
-      HSL.lightness = +(HSL.lightness * 100).toFixed(1);
-      HSL.hue = HSL.hue === 239 ? 179 : HSL.hue;
-      return HSL;
-    };
     setBooksSorted(
       produce(booksSorted, (arrayDraft) => {
-        const itensAlreadyConvert = arrayDraft.firstShelf.some(
-          (item) =>
-            typeof item.color !== 'string' && typeof item.color !== undefined
+        const filtredFirstArray = arrayDraft.firstShelf.filter(
+          ({ color }) => color ?? color
         );
-        if (!itensAlreadyConvert) {
-          const sortedFirst = arrayDraft.firstShelf.map((book) => {
-            book.color = HEXtoRGB(book.color);
-            return (
-              book.color && {
-                ...book,
-                color: RGBtoHSL({
-                  blue: book.color.blue,
-                  green: book.color.green,
-                  red: book.color.red,
-                }),
-              }
-            );
-          });
-          sortedFirst.sort((curr, next) =>
-            !curr.color
-              ? -1
-              : !next.color
-              ? -1
-              : curr.color.hue - next.color.hue > 0
-              ? 1
-              : -1
-          );
-          arrayDraft.firstShelf = sortedFirst;
-        } else
-          arrayDraft.firstShelf.sort((curr, next) =>
-            !curr.color
-              ? -1
-              : !next.color
-              ? -1
-              : curr.color.hue - next.color.hue > 0
-              ? 1
-              : -1
-          );
-        const secondShelfItensAlreadyConvert = arrayDraft.firstShelf.some(
-          (item) =>
-            typeof item.color !== 'string' && typeof item.color !== undefined
+
+        arrayDraft.firstShelf = filtredFirstArray.sort((a, b) => {
+          if (a.color && b.color) {
+            const convertedAColors = HEXtoHSL(a.color);
+            const convertedBColors = HEXtoHSL(b.color);
+
+            return convertedAColors?.hue - convertedBColors?.hue;
+          }
+          return -1;
+        });
+
+        const filtredSecondArray = arrayDraft.secondShelf.filter(
+          ({ color }) => color ?? color
         );
-        if (!secondShelfItensAlreadyConvert) {
-          const sortedSecond = arrayDraft.secondShelf.map((book) => {
-            book.color = HEXtoRGB(book.color);
-            return (
-              book.color && {
-                ...book,
-                color: RGBtoHSL({
-                  blue: book.color.blue,
-                  green: book.color.green,
-                  red: book.color.red,
-                }),
-              }
-            );
-          });
-          sortedSecond.sort((curr, next) =>
-            !curr.color
-              ? -1
-              : !next.color
-              ? -1
-              : curr.color.hue - next.color.hue > 0
-              ? 1
-              : -1
-          );
-          arrayDraft.secondShelf = sortedSecond;
-        } else
-          arrayDraft.secondShelf.sort((curr, next) =>
-            !curr.color
-              ? -1
-              : !next.color
-              ? -1
-              : curr.color.hue - next.color.hue > 0
-              ? 1
-              : -1
-          );
+
+        arrayDraft.secondShelf = filtredSecondArray.sort((a, b) => {
+          if (a.color && b.color) {
+            const convertedAColors = HEXtoHSL(a.color);
+            const convertedBColors = HEXtoHSL(b.color);
+
+            return convertedAColors?.hue - convertedBColors?.hue;
+          }
+          return -1;
+        });
       })
     );
   };
@@ -293,7 +187,11 @@ const ShelfContextProvider: React.FC = ({ children }) => {
   const handleSizeSort = () => {
     setBooksSorted(
       produce(booksSorted, (arrayDraft) => {
-        const sortedFirst = arrayDraft.firstShelf.sort((curr, next) =>
+        const filteredFirstArr = arrayDraft.firstShelf.filter(
+          (item) => item.size !== undefined
+        );
+
+        const sortedFirst = filteredFirstArr.sort((curr, next) =>
           !curr.size
             ? -1
             : !next.size
@@ -307,7 +205,11 @@ const ShelfContextProvider: React.FC = ({ children }) => {
 
         arrayDraft.firstShelf = sortedFirst;
 
-        const sortedSecond = arrayDraft.secondShelf.sort((curr, next) =>
+        const filteredSecondArr = arrayDraft.secondShelf.filter(
+          (item) => item.size !== undefined
+        );
+
+        const sortedSecond = filteredSecondArr.sort((curr, next) =>
           !curr.size
             ? -1
             : !next.size
@@ -317,6 +219,40 @@ const ShelfContextProvider: React.FC = ({ children }) => {
             : next.size > curr.size
             ? -1
             : 0
+        );
+
+        arrayDraft.secondShelf = sortedSecond;
+      })
+    );
+  };
+
+  const handleDateSort = () => {
+    setBooksSorted(
+      produce(booksSorted, (arrayDraft) => {
+        const filteredFirstArr = arrayDraft.firstShelf.filter(
+          (item) => item.created_at !== undefined
+        );
+
+        const sortedFirst = filteredFirstArr.sort((a, b) =>
+          !a.created_at
+            ? -1
+            : !b.created_at
+            ? -1
+            : a.created_at.getTime() - b.created_at.getTime()
+        );
+
+        arrayDraft.firstShelf = sortedFirst;
+
+        const filteredSecondArr = arrayDraft.secondShelf.filter(
+          (item) => item.letter !== undefined
+        );
+
+        const sortedSecond = filteredSecondArr.sort((a, b) =>
+          !a.created_at
+            ? -1
+            : !b.created_at
+            ? -1
+            : a.created_at.getTime() - b.created_at.getTime()
         );
 
         arrayDraft.secondShelf = sortedSecond;
@@ -337,6 +273,7 @@ const ShelfContextProvider: React.FC = ({ children }) => {
         handleAlphaSort,
         handleColorSort,
         handleSizeSort,
+        handleDateSort,
       }}
     >
       {children}
