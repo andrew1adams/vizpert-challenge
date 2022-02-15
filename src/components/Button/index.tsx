@@ -9,23 +9,35 @@ export const Button: React.FC<ButtonProps> = ({ button, index }) => {
   const handleButtonClick = () => {
     if (index === 0) {
       setButtonIsActive({
-        first: true,
-        second: false,
-        third: false,
+        alpha: true,
+        color: false,
+        size: false,
+        date: false,
       });
     }
     if (index === 1) {
       setButtonIsActive({
-        first: false,
-        second: true,
-        third: false,
+        alpha: false,
+        color: true,
+        size: false,
+        date: false,
       });
     }
     if (index === 2) {
       setButtonIsActive({
-        first: false,
-        second: false,
-        third: true,
+        alpha: false,
+        color: false,
+        size: true,
+        date: false,
+      });
+    }
+
+    if (index === 3) {
+      setButtonIsActive({
+        alpha: false,
+        color: false,
+        size: false,
+        date: true,
       });
     }
   };
@@ -35,10 +47,12 @@ export const Button: React.FC<ButtonProps> = ({ button, index }) => {
       onClick={handleButtonClick}
       isActive={
         index === 0
-          ? buttonIsActive.first
+          ? buttonIsActive.alpha
           : index === 1
-          ? buttonIsActive.second
-          : buttonIsActive.third
+          ? buttonIsActive.color
+          : index === 2
+          ? buttonIsActive.size
+          : buttonIsActive.date
       }
     >
       <img src={button.src} alt={button.alt} />

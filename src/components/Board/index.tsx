@@ -10,13 +10,14 @@ export const Board: React.FC = () => {
     handleAlphaSort,
     handleColorSort,
     handleSizeSort,
+    handleDateSort,
     sortOrder,
     setSortOrder,
     buttonIsActive,
   } = useContext(ShelfContext);
 
   const handleOrganizeClick = () => {
-    if (buttonIsActive.first) {
+    if (buttonIsActive.alpha) {
       if (sortOrder === 'alpha') {
         setSortOrder('reverse');
         handleAlphaSort();
@@ -25,7 +26,7 @@ export const Board: React.FC = () => {
         handleAlphaSort();
       }
     }
-    if (buttonIsActive.second) {
+    if (buttonIsActive.color) {
       if (sortOrder === 'color') {
         setSortOrder('reverse');
         handleColorSort();
@@ -34,13 +35,22 @@ export const Board: React.FC = () => {
         handleColorSort();
       }
     }
-    if (buttonIsActive.third) {
+    if (buttonIsActive.size) {
       if (sortOrder === 'size') {
         setSortOrder('reverse');
         handleSizeSort();
       } else {
         setSortOrder('size');
         handleSizeSort();
+      }
+    }
+    if (buttonIsActive.date) {
+      if (sortOrder === 'date') {
+        setSortOrder('reverse');
+        handleDateSort();
+      } else {
+        setSortOrder('date');
+        handleDateSort();
       }
     }
   };

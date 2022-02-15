@@ -36,6 +36,7 @@ export const Container = styled.div`
 
     .sorter-wrapper {
       display: flex;
+      width: 80%;
       flex-direction: column;
       justify-content: center;
       gap: 10px;
@@ -53,7 +54,7 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-around;
-        gap: 20px;
+        gap: 12.5px;
       }
 
       hr {

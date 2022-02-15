@@ -17,6 +17,7 @@ import filter_button_active from './filter_button_active.svg';
 import filter_button from './filter_button.svg';
 import filter_colors from './filter_colors.svg';
 import filter_sizes from './filter_sizes.svg';
+import filter_date from './filter_date.svg';
 import ground from './ground.svg';
 import lady from './lady.svg';
 import logo from './logo.svg';
@@ -41,6 +42,7 @@ export {
   filter_button,
   filter_colors,
   filter_sizes,
+  filter_date,
   ground,
   lady,
   logo,
