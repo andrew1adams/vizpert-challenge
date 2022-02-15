@@ -1,3 +1,31 @@
+## Folder Structure ~ Code mapping of most relevant files, by Andrew Adams.
+
+<br/>
+
+```js
+vizpert-challenge
+  ├── public //public files
+  └── src
+      ├── assets // general assets of project
+      └── components
+          ├── Board // stores board logic
+          ├── Book // stores book logic
+          ├── Bookcase // stores bookcase logic
+          ├── Button // stores button logic
+          ├── Clock // stores clock logic
+          ├── Main // centralizes all components
+          ├── Shelf // stores shelf logic
+          └── index.ts // centralize all component imports
+      ├── constants // stores all constants values of project
+      ├── context // stores all contexts
+      ├── helpers // auxiliar functions
+      ├── hooks // custom hooks
+      ├── interfaces // stores all interfaces of projects
+      └── styles // stores global styles
+```
+
+<br/>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

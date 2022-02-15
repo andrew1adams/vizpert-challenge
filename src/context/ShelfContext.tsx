@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { createContext, useEffect, useState } from 'react';
 import { books, shelfContextDefaultValue } from '../constants';
-import { HEXtoHSL } from '../helper';
+import { HEXtoHSL } from '../helpers';
 import { IBooks, IReorderBooks, ShelfContextProps } from '../interfaces';
 
 const ShelfContext = createContext<ShelfContextProps>(shelfContextDefaultValue);
