@@ -4,6 +4,7 @@
 
 ```js
 vizpert-challenge
+
   ├── public //public files
   └── src
       ├── assets // general assets of project
@@ -25,6 +26,30 @@ vizpert-challenge
 ```
 
 <br/>
+
+## **Feedback**
+
+#### **Alpha**:
+
+- Sort: `['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']`
+- Reverse: `['I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A']`
+
+#### **Color**:
+
+- Sort: `['B', 'C', 'A', 'I', 'E', 'H', 'D','G', 'F']`
+- Reverse: `['F', 'G', 'D', 'H', 'E', 'I', 'A', 'C', 'H']`
+
+#### **Size**:
+
+- Sort: `['E', 'G', 'F', 'H', 'I', 'A', 'H', 'C', 'D']`
+- Reverse: `['D', 'C', 'H', 'A', 'I', 'B', 'F', 'G', 'E']`
+
+### **Date**:
+
+- Sort: `['F', 'E', 'D', 'I', 'G', 'B', 'A', 'C', 'H']`
+- Reverse: `['H', 'C', 'A', 'B', 'G', 'I', 'D', 'E', 'F']`
+
+---
 
 # Getting Started with Create React App
 
